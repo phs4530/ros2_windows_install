@@ -59,8 +59,8 @@ function Standard-Install {
     }
 
     # Install OpenCV
-    $URL = “https://github.com/ros2/ros2/releases/download/opencv-archives/opencv-3.4.6-vc16.VS2019.zip”
-    $FILE = ”opencv-3.4.6-vc16.VS2019.zip”
+    $URL = "https://github.com/ros2/ros2/releases/download/opencv-archives/opencv-3.4.6-vc16.VS2019.zip"
+    $FILE = "opencv-3.4.6-vc16.VS2019.zip"
     $OPENCV_DIR = "C:\"
     Download-File -Uri $URL -OutFile $FILE
     Extract-File -File $FILE -Dir $OPENCV_DIR -Folder "\opencv"
