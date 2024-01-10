@@ -17,8 +17,8 @@ function Standard-Install {
     # Install Visual C++ Redistributables
     choco install -y vcredist2013 vcredist140
 
-    # Install OpenSSL
-    choco install -y openssl
+    # Install OpenSSL v1.1.1
+    choco install -y openssl --version=1.1.1.2100
 
     # Install Visual Studio Community
     $CONFIG = '{
