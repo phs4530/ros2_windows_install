@@ -208,7 +208,7 @@ function Create-Start-File {
     if (Test-Path -Path ($Startup) -PathType Leaf) {
         Remove-Item -Path $Startup
     }
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/scottcandy34/ros2_windows_install/main/start.ps1" -OutFile ($Startup)
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/phs4530/ros2_windows_install/main/start.ps1" -OutFile ($Startup)
     "`n$Dir\local_setup.ps1" | Add-Content $Startup
     "`$Host.UI.RawUI.WindowTitle = `"Loading $Version_Title Environment`"`n" + (Get-Content $Startup -Raw) | Set-Content $Startup
 }
