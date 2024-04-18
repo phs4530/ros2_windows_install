@@ -193,7 +193,7 @@ function Alternate-Install {
     # Install ROS
     $env:ChocolateyInstall = "c:\opt\chocolatey"
     choco source add -n=ros-win -s="https://aka.ms/ros/public" --priority=1
-    choco upgrade ros-humble-desktop -y --execution-timeout=0 -pre
+    choco upgrade ros-humble-desktop_full -y --execution-timeout=0 -pre
 
     Add_Links -Path "C:\opt\ros\$Version\x64\"
 }
