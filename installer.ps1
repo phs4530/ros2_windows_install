@@ -247,7 +247,7 @@ function Start-Installer {
     if ((Test-Path -Path $Standard) -or (Test-Path -Path $Alternate)) {
         $title    = "You already have ROS2 $Version_Title installed."
         $question = 'What Would you like to do?'
-        $choices  = '&0: Update/Reinstall', '&1: Uninstall ROS', '&2: Uninstall Dependencies'
+        $choices  = '&0: Update/Reinstall', '&1: Uninstall ROS', '&2: Uninstall Dependencies', '&3: Reinstall Packages'
         $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
 
         if ($decision -eq 0) {
@@ -260,6 +260,8 @@ function Start-Installer {
             Uninstall-Ros
         } elseif ($decision -eq 2) {
             Uninstall-Dep
+        } elseif ($decision -eq 3) {
+            Reinstall-Packages
         }
     } else {
         # Ask What Build Type

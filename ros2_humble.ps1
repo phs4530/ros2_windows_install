@@ -260,7 +260,7 @@ function Uninstall-Dep {
     # Uninstall python packages
     py -3.8 -m pip uninstall -y catkin_pkg cryptography empy importlib-metadata lark==1.1.1 lxml matplotlib netifaces numpy opencv-python PyQt5 pillow psutil pycairo pydot pyparsing==2.4.7 pyyaml rosdistro
     py -3.8 -m pip uninstall -y pip setuptools==59.6.0
-    py -3.8 -m pip uninstall -Y colcon-common-extensions
+    py -3.8 -m pip uninstall -y colcon-common-extensions
 
     # Uninstall Chocolaty packages
     ECHO Y | choco uninstall -y graphviz -n
@@ -288,5 +288,56 @@ function Uninstall-Dep {
     Remove-Path -RemovePath "C:\Python38\"
     Remove-Path -RemovePath "C:\Python38\Scripts\"
 }
+function Reinstall-Packages {
+    # Set Custom Chocolatey location
+    $env:ChocolateyInstall = "C:\dev\chocolatey"
+    $env:Path = "C:\dev\chocolatey\bin;" + $env:Path
 
+    # remove
+    ECHO Y | choco uninstall -y cmake
+    choco uninstall -y asio cunit eigen tinyxml-usestl tinyxml2 bullet
+
+
+    # Install Python
+    Install-Python
+    $PythonPath = Python-Path
+
+    # Install CMake
+    choco install -y cmake
+    Set-Path -NewPath "C:\Program Files\CMake\bin"
+
+    # Install Dependencies
+    $baseUri = 'https://github.com/ros2/choco-packages/releases/download/2022-03-15'
+    $files = @(
+        @{
+            Uri = "$baseUri/asio.1.12.1.nupkg"
+            OutFile = 'asio.1.12.1.nupkg'
+        },
+        @{
+            Uri = "$baseUri/bullet.3.17.nupkg"
+            OutFile = 'bullet.3.17.nupkg'
+        },
+        @{
+            Uri = "$baseUri/cunit.2.1.3.nupkg"
+            OutFile = 'cunit.2.1.3.nupkg'
+        },
+        @{
+            Uri = "$baseUri/eigen.3.3.4.nupkg"
+            OutFile = 'eigen.3.3.4.nupkg'
+        },
+        @{
+            Uri = "$baseUri/tinyxml-usestl.2.6.2.nupkg"
+            OutFile = 'tinyxml-usestl.2.6.2.nupkg'
+        },
+        @{
+            Uri = "$baseUri/tinyxml2.6.0.0.nupkg"
+            OutFile = 'tinyxml2.6.0.0.nupkg'
+        }
+    )
+
+    foreach ($file in $files) {
+        Download-File @file
+    }
+    choco install -y -s $DownloadDir asio cunit eigen tinyxml-usestl tinyxml2 bullet
+}
 Start-Installer
