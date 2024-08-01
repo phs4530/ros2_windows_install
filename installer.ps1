@@ -191,7 +191,7 @@ function Install-Python {
         $env:Path = $Py38.Matches.Groups[2].Value + ";" + $Py38.Matches.Groups[2].Value + "Scripts\;" + $env:Path
     }
 
-    choco upgrade -y python --version=3.8.19
+    choco upgrade -y python --version=3.8.10
 }
 
 function Python-Path {
